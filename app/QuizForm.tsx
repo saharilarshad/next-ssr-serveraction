@@ -5,10 +5,10 @@ const sql = postgres(process.env.DATABASE_URL!)
 
 function Answer({ id }: { id: number }) {
     return (
-        <label>
-            Answer {id}
-            <input type="text" name={`answer-${id}`} />
-            <input type="checkbox" name={`check-${id}`} />
+        <label className="flex flex-row gap-2 text-white items-center">
+            Answer {id} :
+            <input type="text" name={`answer-${id}`} className="p-1 rounded-sm border bg-transparent text-white" />
+            <input type="checkbox" name={`check-${id}`} className="p-1 rounded-sm border bg-transparent text-white" />
         </label>
     )
 }
@@ -29,7 +29,7 @@ const QuizForm = () => {
             }
         })
 
-        console.log({title, description, question_text,answers})
+        console.log({ title, description, question_text, answers })
 
         await sql`
         WITH new_quiz AS (
@@ -49,27 +49,29 @@ const QuizForm = () => {
     }
 
     return (
-        <form action={createQuiz}>
-            <div className="flex flex-col gap-1">
-                <label >Title
-                    <input type="text" name="title" />
+        <form action={createQuiz} className="border-2 border-white p-3 rounded-xl relative overflow-y-auto">
+            <div className="flex flex-col gap-2">
+                <label className="flex flex-row gap-2 text-white">Title :
+                    <input type="text" name="title" className="p-1 rounded-sm border bg-transparent text-white" />
                 </label>
-                <label >Description
-                    <input type="text" name="description" />
+                <label className="flex flex-row gap-2 text-white">Description :
+                    <input type="text" name="description" className="p-1 rounded-sm border bg-transparent text-white" />
                 </label>
-                <label >Question
-                    <input type="text" name="question" />
+                <label className="flex flex-row gap-2 text-white">Question :
+                    <input type="text" name="question" className="p-1 rounded-sm border bg-transparent text-white" />
                 </label>
             </div>
 
-            <div className="mt-5 flex flex-col gap-1">
+            <div className="mt-5 flex flex-col gap-1 mb-5">
                 <Answer id={1} />
                 <Answer id={2} />
                 <Answer id={3} />
                 <Answer id={4} />
             </div>
 
-            <button type="submit" className="bg-green-400 p-2 border">Create Quize</button>
+            <div className="flex flex-row w-full justify-end">
+                <button type="submit" className="bg-blue-950 p-2 border rounded-full text-white">Create Quize</button>
+            </div>
 
         </form>
     )
